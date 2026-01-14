@@ -330,7 +330,7 @@ func checkChecksumCosign(pkgInfo *registry.PackageInfo, checksumAssetName string
 	cosign := &registry.Cosign{
 		Opts: make([]string, 0, 8), //nolint:mnd // we generate max 8 arguments (certificate case)
 	}
-	downloadURL := fmt.Sprintf("https://github.com/%s/%s/releases/download/{{.Version}}/",
+	downloadURL := fmt.Sprintf(config.GitHubCosignURLTemplate,
 		pkgInfo.RepoOwner, pkgInfo.RepoName)
 
 	var bundleAssetName, certificateAssetName string
