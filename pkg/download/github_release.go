@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/aquaproj/aqua/v2/pkg/config"
 	"github.com/aquaproj/aqua/v2/pkg/domain"
 	"github.com/aquaproj/aqua/v2/pkg/github"
 	"github.com/suzuki-shunsuke/slog-error/slogerr"
@@ -40,7 +41,7 @@ func (dl *GitHubReleaseDownloader) DownloadGitHubRelease(ctx context.Context, lo
 		// And if it failed, aqua tries again with GitHub API.
 		// It avoids the rate limit of the access token.
 		b, length, err := dl.http.Download(ctx, fmt.Sprintf(
-			"https://github.com/%s/%s/releases/download/%s/%s",
+			config.GitHubReleaseURLTemplate,
 			param.RepoOwner, param.RepoName, param.Version, param.Asset,
 		))
 		if err == nil {
